@@ -21,7 +21,17 @@ public:
 
     void addProduct(FoodProduct* f) { items.push_back(f); }
 
-    void deleteProduct(const char* name);
+    void deleteProduct(const char* name){
+        for(size_t i=0; i<items.size(); i++) {
+            if(strcmp(items[i]->getName(), name) == 0) {
+                delete items[i];
+                items.erase(items.begin() + i);
+                cout << "Deleted product.\n";
+                return;
+            }
+        }
+        cout << "Product not found.\n";
+    }
 
     void editProduct(const char* name);
 
