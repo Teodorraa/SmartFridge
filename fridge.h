@@ -101,13 +101,21 @@ public:
     }
 
 
-    void saveToFile(const char* filename) const;
+    void saveToFile(const char* filename) const{
+        ofstream file(filename);
+        for(size_t i=0; i<items.size(); i++)
+            file << items[i]->getName() << " "
+                 << items[i]->getCategory() << " "
+                 << items[i]->getQuantity() << " "
+                 << items[i]->getExpiration() << endl;
+        cout << "Saved to file.\n";
+    }
 
     void loadFromFile(const char* filename);
 
-    FoodProduct** getItems();
+    vector<FoodProduct*>& getItems() { return items; }
 
-    int getItemCount() const;
+    size_t itemCount() const { return items.size(); }
 };
 
 #endif
