@@ -79,6 +79,19 @@ public:
     
     }
 
+    void sortByName() {
+        for(size_t i=0; i<items.size(); i++) {
+            for(size_t j=i+1; j<items.size(); j++) {
+                if(strcmp(items[i]->getName(), items[j]->getName()) > 0) {
+                    FoodProduct* temp = items[i];
+                    items[i] = items[j];
+                    items[j] = temp;
+                }
+            }
+        }
+        cout << "Products sorted by name.\n";
+    }
+
     void saveToFile(const char* filename) const;
 
     void loadFromFile(const char* filename);
