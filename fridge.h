@@ -92,6 +92,15 @@ public:
         cout << "Products sorted by name.\n";
     }
 
+    void lowStockAlert() const {
+        cout << "Low stock products (<=2):\n";
+        for(size_t i=0; i<items.size(); i++) {
+            if(items[i]->getQuantity() <= 2)
+                cout << items[i]->getName() << " - Quantity: " << items[i]->getQuantity() << endl;
+        }
+    }
+
+
     void saveToFile(const char* filename) const;
 
     void loadFromFile(const char* filename);
