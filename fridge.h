@@ -66,7 +66,11 @@ public:
             if(strcmp(items[i]->getCategory(), cat) == 0) items[i]->showInfo();
     }
 
-    void checkExpiringSoon(const char* today) const;
+    void checkExpiringSoon(const char* today) const{
+      cout << "Products expiring soon:\n";
+      for(size_t i=0; i<items.size(); i++)
+      if(strcmp(items[i]->getExpiration(), today) <= 0) items[i]->showInfo();
+    }
 
     void checkExpired(const char* today) const;
 
