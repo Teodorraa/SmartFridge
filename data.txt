@@ -4,3 +4,4 @@ Cucumber Vegetable 11 06.06.2026
 Lettuce Vegetable 3 06.06.2026
 Milk Dairy 3 02.06.2026
 Tomato Vegetable 10 06.06.2026
+Cheese Dairy 5 05.06.2026

@@ -4,8 +4,11 @@
 #include "food_product.h"
 #include <fstream>
 #include <vector>
+#include "utils.h"
 
 using namespace std;
+
+int dateToInt(const char* date);
 
 class Fridge {
 private:
@@ -27,6 +30,7 @@ public:
                 delete items[i];
                 items.erase(items.begin() + i);
                 cout << "Deleted product.\n";
+
                 return;
             }
         }
@@ -52,31 +56,57 @@ public:
     }
 
     void showAll() const {
+        if(items.empty()) {
+            cout << "No products in fridge." << endl;
+            return;
+        }
         for(size_t i=0; i<items.size(); i++) items[i]->showInfo();
     }
 
     void searchByName(const char* name) const {
-
-        for(size_t i=0; i<items.size(); i++)
-            if(strcmp(items[i]->getName(), name) == 0) items[i]->showInfo();
+        bool found = false;
+        for(size_t i=0; i<items.size(); i++) {
+            if(strcmp(items[i]->getName(), name) == 0) {
+                items[i]->showInfo();
+                found = true;
+            }
+        }
+        if(!found) cout << "No product found with that name." << endl;
     }
 
     void filterByCategory(const char* cat) const {
-        for(size_t i=0; i<items.size(); i++)
-            if(strcmp(items[i]->getCategory(), cat) == 0) items[i]->showInfo();
+        bool found = false;
+        for(size_t i=0; i<items.size(); i++) {
+            if(strcmp(items[i]->getCategory(), cat) == 0) {
+                items[i]->showInfo();
+                found = true;
+            }
+        }
+        if(!found) cout << "No products found in that category." << endl;
     }
 
-    void checkExpiringSoon(const char* today) const{
-      cout << "Products expiring soon:\n";
-      for(size_t i=0; i<items.size(); i++)
-      if(strcmp(items[i]->getExpiration(), today) <= 0) items[i]->showInfo();
+    void checkExpiringSoon(const char* today) const {
+        int todayInt = dateToInt(today);
+        bool found = false;
+        for(size_t i=0; i<items.size(); i++) {
+            if(dateToInt(items[i]->getExpiration()) > todayInt) {
+                items[i]->showInfo();
+                found = true;
+            }
+        }
+        if(!found) cout << "No products expiring soon." << endl;
     }
 
-    void checkExpired(const char* today) const{
-        cout << "Expired products:\n";
-        for(size_t i=0; i<items.size(); i++)
-        if(strcmp(items[i]->getExpiration(), today) < 0) items[i]->showInfo();
-    
+    void checkExpired(const char* today) const {
+        int todayInt = dateToInt(today);
+        bool found = false;
+        for(size_t i=0; i<items.size(); i++) {
+            if(dateToInt(items[i]->getExpiration()) < todayInt) {
+                items[i]->showInfo();
+                found = true;
+            }
+        }
+        if(!found) cout << "No expired products." << endl;
     }
 
     void sortByName() {
@@ -94,10 +124,14 @@ public:
 
     void lowStockAlert() const {
         cout << "Low stock products (<=2):\n";
+        bool found = false;
         for(size_t i=0; i<items.size(); i++) {
-            if(items[i]->getQuantity() <= 2)
+            if(items[i]->getQuantity() <= 2) {
                 cout << items[i]->getName() << " - Quantity: " << items[i]->getQuantity() << endl;
+                found = true;
+            }
         }
+        if(!found) cout << "No low stock products." << endl;
     }
 
 
@@ -113,7 +147,10 @@ public:
 
     void loadFromFile(const char* filename){
         ifstream file(filename);
-        if(!file) return;
+        if(!file) {
+            cout << "Could not open file '" << filename << "'." << endl;
+            return;
+        }
         for(size_t i=0; i<items.size(); i++) delete items[i];
         items.clear();
 
