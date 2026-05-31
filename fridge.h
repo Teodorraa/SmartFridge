@@ -111,7 +111,18 @@ public:
         cout << "Saved to file.\n";
     }
 
-    void loadFromFile(const char* filename);
+    void loadFromFile(const char* filename){
+        ifstream file(filename);
+        if(!file) return;
+        for(size_t i=0; i<items.size(); i++) delete items[i];
+        items.clear();
+
+        char n[50], c[50], exp[15];
+        int qty;
+        while(file >> n >> c >> qty >> exp)
+            items.push_back(new FoodProduct(n, c, qty, exp));
+        cout << "Loaded from file.\n";
+    }
 
     vector<FoodProduct*>& getItems() { return items; }
 
