@@ -72,7 +72,12 @@ public:
       if(strcmp(items[i]->getExpiration(), today) <= 0) items[i]->showInfo();
     }
 
-    void checkExpired(const char* today) const;
+    void checkExpired(const char* today) const{
+        cout << "Expired products:\n";
+        for(size_t i=0; i<items.size(); i++)
+        if(strcmp(items[i]->getExpiration(), today) < 0) items[i]->showInfo();
+    
+    }
 
     void saveToFile(const char* filename) const;
 
