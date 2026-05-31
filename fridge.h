@@ -33,9 +33,27 @@ public:
         cout << "Product not found.\n";
     }
 
-    void editProduct(const char* name);
+    void editProduct(const char* name){
+        for(size_t i=0; i<items.size(); i++) {
+            if(strcmp(items[i]->getName(), name) == 0) {
+                char cat[50], exp[15];
+                int qty;
+                cout << "New category: "; cin >> cat;
+                cout << "New quantity: "; cin >> qty;
+                cout << "New expiration: "; cin >> exp;
+                delete items[i];
+                items[i] = new FoodProduct(name, cat, qty, exp);
+                cout << "Product updated.\n";
+                return;
+            }
+        }
 
-    void showAll() const;
+        cout << "Product not found.\n";
+    }
+
+    void showAll() const {
+        for(size_t i=0; i<items.size(); i++) items[i]->showInfo();
+    }
 
     void searchByName(const char* name) const;
 
