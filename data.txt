@@ -1,0 +1,6 @@
+Chocolate Sweets 1 30.05.2026
+Cookies Sweets 20 28.06.2026
+Cucumber Vegetable 11 06.06.2026
+Lettuce Vegetable 3 06.06.2026
+Milk Dairy 3 02.06.2026
+Tomato Vegetable 10 06.06.2026
