@@ -55,9 +55,16 @@ public:
         for(size_t i=0; i<items.size(); i++) items[i]->showInfo();
     }
 
-    void searchByName(const char* name) const;
+    void searchByName(const char* name) const {
 
-    void filterByCategory(const char* cat) const;
+        for(size_t i=0; i<items.size(); i++)
+            if(strcmp(items[i]->getName(), name) == 0) items[i]->showInfo();
+    }
+
+    void filterByCategory(const char* cat) const {
+        for(size_t i=0; i<items.size(); i++)
+            if(strcmp(items[i]->getCategory(), cat) == 0) items[i]->showInfo();
+    }
 
     void checkExpiringSoon(const char* today) const;
 
