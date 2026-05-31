@@ -12,10 +12,14 @@ private:
     vector<FoodProduct*> items;
 
 public:
-    Fridge();
-    ~Fridge();
+    Fridge(){}
 
-    void addProduct(FoodProduct* f);
+    ~Fridge(){
+    for(size_t i=0; i<items.size(); i++) delete items[i];
+        items.clear();
+}
+
+    void addProduct(FoodProduct* f) { items.push_back(f); }
 
     void deleteProduct(const char* name);
 
